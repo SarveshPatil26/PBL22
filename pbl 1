@@ -1,2 +1,39 @@
 # PBL22
+''' JUPYTER'''
+
 import cv2
+import numpy as np
+import matplotlib.pyplot as mplt
+
+image = cv2.imread('/Users/sarvesh/Downloads/20210612_051850_Original.jpg')
+
+image_rgb = np.copy(image) 
+image_rgb = cv2.cvtColor(image_rgb,cv2.COLOR_BGR2RGB)
+mplt.imshow(image_rgb)
+
+image_gray = np.copy(image)
+image_gray = cv2.cvtColor(image_gray,cv2.COLOR_BGR2GRAY) 
+mplt.imshow(image_gray, cmap='gray')
+
+cv2.minMaxLoc(image_gray)
+max_loc_x = cv2.minMaxLoc (image_gray) [3][0] 
+max_loc_y = cv2.minMaxLoc (image_gray) [3][1]
+
+s = 500
+
+coord1 = (max_loc_x-s,max_loc_y-s) 
+coord2 = (max_loc_x+s, max_loc_y+s)
+color = (255,0,0)
+
+t = 500
+
+image_box = np.copy(image_rgb) 
+image_box = cv2.rectangle (image_box, coord1, coord2, color,t)
+mplt.imshow(image_box)
+
+fig, axes = mplt.subplots(1,2, figsize=(15,10)) ;axes[0].imshow(image_rgb)
+axes[0].set_title('Original');
+axes[0].axis('off');
+axes[1].imshow(image_box)
+axes[1].set_title('Brightest Spot');
+axes [1].axis('off');
